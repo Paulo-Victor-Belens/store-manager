@@ -1,5 +1,5 @@
 const express = require('express');
-const { products } = require('./routes');
+const { products, sales } = require('./routes');
 
 const app = express();
 
@@ -11,5 +11,6 @@ app.get('/', (_request, response) => {
 });
 
 app.use('/products', products);
+app.use('/sales', sales);
 
 module.exports = app;
