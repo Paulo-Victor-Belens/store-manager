@@ -9,7 +9,7 @@ const productsFromModel = [
   },
   {
     id: 3,
-    name: 'Escudo do Capitão América',
+    name: 'Escudo do CapitÃ£o AmÃ©rica',
   },
 ];
 
@@ -24,7 +24,7 @@ const productsFromDB = [
   },
   {
     id: 3,
-    name: 'Escudo do Capitão América',
+    name: 'Escudo do CapitÃ£o AmÃ©rica',
   },
 ];
 
