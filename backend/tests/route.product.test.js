@@ -54,4 +54,26 @@ describe('Fazendo testes da rota PRODUCTS', function () {
     expect(response.body).to.have.property('id');
     expect(response.body).to.have.property('name');
   });
+
+  it('Testando middlewares de product sem chaves corretas', async function () {
+    const response = await chai.request(app).post('/products/').send({
+      teste: 'Teste',
+    });
+
+    expect(response.status).to.be.equal(400);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+    expect(response.body.message).to.be.equal('"name" is required');
+  });
+
+  it('Testando middlewares de product com valores com menos de 5 caracteres', async function () {
+    const response = await chai.request(app).post('/products/').send({
+      name: 'Test',
+    });
+
+    expect(response.status).to.be.equal(422);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+    expect(response.body.message).to.be.equal('"name" length must be at least 5 characters long');
+  });
 });

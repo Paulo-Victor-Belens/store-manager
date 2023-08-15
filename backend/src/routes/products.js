@@ -1,5 +1,6 @@
 const express = require('express');
 const ProductsController = require('../controllers/products.controller');
+const validateProduct = require('../middlewares/validationProduct');
 
 const router = express.Router();
 
@@ -9,6 +10,6 @@ router.get('/', ProductsController.show);
 
 router.get('/:id', ProductsController.showById);
 
-router.post('/', ProductsController.createProduct);
+router.post('/', validateProduct, ProductsController.createProduct);
 
 module.exports = router;
