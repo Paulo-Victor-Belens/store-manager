@@ -81,14 +81,14 @@ describe('Fazendo testes da rota SALES', function () {
     expect(response.body.message).to.be.equal('"productId" is required');
   });
 
-  it('Testando se quando for criada uma venda sem a chave quantity, o status é 400', async function () {
+ it('Testando se quando for criada uma venda sem a chave quantity, o status é 400', async function () {
     const response = await chai.request(app).post('/sales').send(salesCreatedwithoutKeyQuantity);
 
     expect(response.status).to.be.equal(400);
     expect(response.body).to.be.an('object');
     expect(response.body).to.have.property('message');
     expect(response.body.message).to.be.equal('"quantity" is required');
-  });
+  }); 
 
   it('Testando se quando for criada uma venda com a chave quantity igual a zero, o status é 422', async function () {
     const response = await chai.request(app).post('/sales').send(salesCreatedwithtKeyQuantityEqualZero);
