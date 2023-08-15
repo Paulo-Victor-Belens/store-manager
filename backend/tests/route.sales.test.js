@@ -47,4 +47,13 @@ describe('Fazendo testes da rota SALES', function () {
     // expect(response.body).to.be.deep.equal(salesByIdFromModel);
     expect(response).to.be.an('object');
   });
+
+  it('Testando rota sales por id, com id invalido', async function () {
+    const response = await chai.request(app).get('/sales/289');
+
+    expect(response.status).to.be.equal(404);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+    expect(response.body.message).to.be.equal('Sale not found');
+  });
 });

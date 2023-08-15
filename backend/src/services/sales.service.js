@@ -3,8 +3,6 @@ const SalesModel = require('../models/sales.model');
     async function findAll() {
         const sales = await SalesModel.getAll();
 
-        if (!sales) return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
-
         return { status: 'SUCCESSFUL', data: sales };
     }
 

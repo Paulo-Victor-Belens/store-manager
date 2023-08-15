@@ -3,8 +3,6 @@ const ProductsModel = require('../models/products.model');
     async function findAll() {
         const products = await ProductsModel.getAll();
 
-        if (!products) return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
-
         return { status: 'SUCCESSFUL', data: products };
     }
 
@@ -20,10 +18,6 @@ const ProductsModel = require('../models/products.model');
 
     async function create(product) {
         const products = await ProductsModel.createInDB(product);
-        
-        if (!products) {
-            return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
-        }
 
         return { status: 'CREATED', data: products };
     }
