@@ -12,9 +12,14 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP');
       return res.status(mapStatusHTTP(status)).json(data);
     }
 
-    // create(req, res) {
-    //     res.send('Create Product');
-    // }
+    async function createSales(req, res) {
+      const { body } = req;
+      const { status, data } = await SalesService.create(body);
+      return res.status(mapStatusHTTP(status)).json({ 
+        id: data,
+        itemsSold: body, 
+      });
+    }
 
     // update(req, res) {
     //     res.send('Update Product ' + req.params.id);
@@ -27,4 +32,5 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP');
 module.exports = {
     show,
     showById,
+    createSales,
 };

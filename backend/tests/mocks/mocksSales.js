@@ -54,9 +54,67 @@ const salesByIdFromDB = {
   quantity: 5,
 };
 
+const salesCreatedValid = [
+  {
+    productId: 2,
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 3,
+  },
+];
+
+const salesCreatedwithoutKeyProductId = [
+  {
+    quantity: 1,
+  },
+  {
+    productId: 2,
+    quantity: 3,
+  },
+];
+
+const salesCreatedwithoutKeyQuantity = [
+  {
+    productId: 10,
+  },
+  {
+    productId: 2,
+    quantity: 3,
+  },
+];
+
+const salesCreatedwithtKeyQuantityEqualZero = [
+  {
+    productId: 10,
+    quantity: 5,
+  },
+  {
+    productId: 2,
+    quantity: 0,
+  },
+];
+
+const salesCreatedwithoutProductInDB = [
+  {
+    productId: 1000,
+    quantity: 3,
+  },
+  {
+    productId: 2,
+    quantity: 3,
+  },
+];
+
 module.exports = {
   salesFromModel,
   salesFromDB,
   salesByIdFromModel,
   salesByIdFromDB,
+  salesCreatedValid,
+  salesCreatedwithoutKeyProductId,
+  salesCreatedwithoutKeyQuantity,
+  salesCreatedwithtKeyQuantityEqualZero,
+  salesCreatedwithoutProductInDB,
 };

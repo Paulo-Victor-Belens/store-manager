@@ -22,15 +22,27 @@ async function getById(id) {
   return camelize(rows);
 }
 
-  // async create(name, quantity) {
-  //   const [result] = await this.connection.execute(
-  //     'INSERT INTO sales (name, quantity) VALUES (?, ?)',
-  //     [name, quantity]
-  //   );
-  //   return result;
-  // }
+// passar a data atual da venda como parametro
+async function createSales(date) {
+  const [{ insertId }] = await connection.execute(`INSERT INTO 
+  sales (date) VALUES (?)`, [date]);
+  return camelize(insertId);
+}
 
-  // async update(id, name, quantity) {
+async function createSalesProducts(saleId, productId, quantity) {
+  const [{ insertId }] = await connection.execute(`INSERT INTO
+  sales_products (sale_id, product_id, quantity) 
+  VALUES (?, ?, ?)`, [saleId, productId, quantity]);
+  return camelize(insertId);
+}
+
+// async function updateQuantity(sale) {
+//   const [rows] = await connection.execute(`UPDATE products 
+//   SET quantity = quantity - ? WHERE id = ?`, [sale.quantity, sale.product_id]);
+//   return camelize(rows);
+// }
+
+   // async update(id, name, quantity) {
   //   const [result] = await this.connection.execute(
   //     'UPDATE sales SET name = ?, quantity = ? WHERE id = ?',
   //     [name, quantity, id]
@@ -49,4 +61,6 @@ async function getById(id) {
 module.exports = {
   getAll,
   getById,
+  createSales,
+  createSalesProducts,
 };
