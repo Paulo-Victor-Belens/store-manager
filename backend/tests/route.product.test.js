@@ -43,4 +43,15 @@ describe('Fazendo testes da rota PRODUCTS', function () {
     // expect(response.body).to.be.deep.equal(productByIdFromModel);
     expect(response).to.be.an('object');
   });
+
+  it('Criando um prodto', async function () {
+    const response = await chai.request(app).post('/products').send({
+      name: 'Teste',
+    });
+
+    expect(response.status).to.be.equal(201);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('id');
+    expect(response.body).to.have.property('name');
+  });
 });

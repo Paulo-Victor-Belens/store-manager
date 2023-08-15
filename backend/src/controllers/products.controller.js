@@ -1,22 +1,22 @@
 const ProductService = require('../services/product.service');
+const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
     async function show(req, res) {
-      return res.status(200).json(await ProductService.findAll());
+      const { status, data } = await ProductService.findAll();
+      return res.status(mapStatusHTTP(status)).json(data);
     }
 
     async function showById(req, res) {
       const { id } = req.params;
-
-      if (!await ProductService.findById(id)) {
-        return res.status(404).json({ message: 'Product not found' });
-      } 
-
-      return res.status(200).json(await ProductService.findById(id));
+      const { status, data } = await ProductService.findById(id);
+      return res.status(mapStatusHTTP(status)).json(data);  
     }
 
-    // create(req, res) {
-    //     res.send('Create Product');
-    // }
+    async function createProduct(req, res) {
+      const { name } = req.body;
+        const { status, data } = await ProductService.create(name);
+        return res.status(mapStatusHTTP(status)).json({ id: data, name });
+    }
 
     // update(req, res) {
     //     res.send('Update Product ' + req.params.id);
@@ -29,4 +29,5 @@ const ProductService = require('../services/product.service');
 module.exports = {
     show,
     showById,
+    createProduct,
 };

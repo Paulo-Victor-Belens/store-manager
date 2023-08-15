@@ -18,13 +18,14 @@ const connection = require('./connection');
     return rowsCamelize[0];
   }
 
-  // async create(name, quantity) {
-  //   const [result] = await this.connection.execute(
-  //     'INSERT INTO products (name, quantity) VALUES (?, ?)',
-  //     [name, quantity]
-  //   );
-  //   return result;
-  // }
+  async function createInDB(name) {
+    const [{ insertId }] = await connection.execute(
+      'INSERT INTO products (name) VALUES (?)',
+      [name],
+    );
+
+    return insertId;
+  }
 
   // async update(id, name, quantity) {
   //   const [result] = await this.connection.execute(
@@ -45,4 +46,5 @@ const connection = require('./connection');
 module.exports = {
   getAll,
   getById,
+  createInDB,
 };

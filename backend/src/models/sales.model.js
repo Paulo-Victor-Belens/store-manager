@@ -8,8 +8,7 @@ async function getAll() {
   ON s.id = sp.sale_id
   ORDER BY sale_id, product_id;`);
   
-  const rowsCamelize = camelize(rows);
-  return rowsCamelize;
+  return camelize(rows);
 }
 
 async function getById(id) {
@@ -20,9 +19,7 @@ async function getById(id) {
   WHERE sl.sale_id = ?
   `, [id]);
 
-  const rowsCamelize = camelize(rows);
-
-  return rowsCamelize;
+  return camelize(rows);
 }
 
   // async create(name, quantity) {

@@ -1,14 +1,35 @@
 const ProductsModel = require('../models/products.model');
 
-    function findAll() {
-        return ProductsModel.getAll();
+    async function findAll() {
+        const products = await ProductsModel.getAll();
+
+        if (!products) return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+
+        return { status: 'SUCCESSFUL', data: products };
     }
 
-    function findById(id) {
-        return ProductsModel.getById(id);
+    async function findById(id) {
+        const products = await ProductsModel.getById(id);
+
+        if (!products) {
+            return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+        }
+
+        return { status: 'SUCCESSFUL', data: products };
+    }
+
+    async function create(product) {
+        const products = await ProductsModel.createInDB(product);
+        
+        if (!products) {
+            return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+        }
+
+        return { status: 'CREATED', data: products };
     }
 
 module.exports = {
     findAll,
     findById,
+    create,
 };
