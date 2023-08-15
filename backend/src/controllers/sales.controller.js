@@ -1,17 +1,15 @@
 const SalesService = require('../services/sales.service');
+const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
-    async function show(req, res) {
-      return res.status(200).json(await SalesService.findAll());
+    async function show(_req, res) {
+      const { status, data } = await SalesService.findAll();
+      return res.status(mapStatusHTTP(status)).json(data);
     }
 
     async function showById(req, res) {
       const { id } = req.params;
-
-      if (!await SalesService.findById(id)) {
-        return res.status(404).json({ message: 'Product not found' });
-      } 
-
-      return res.status(200).json(await SalesService.findById(id));
+      const { status, data } = await SalesService.findById(id);
+      return res.status(mapStatusHTTP(status)).json(data);
     }
 
     // create(req, res) {

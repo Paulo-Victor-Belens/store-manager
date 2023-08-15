@@ -1,35 +1,57 @@
-const date = '2023-08-14T23:14:54.000Z';
+const date = '2023-08-15T03:24:49.000Z';
 
 const salesFromModel = [
   {
-    id: 1,
+    saleId: 1,
     date,
+    productId: 1,
+    quantity: 5,
   },
   {
-    id: 2,
+    saleId: 1,
     date,
+    productId: 2,
+    quantity: 10,
+  },
+  {
+    saleId: 2,
+    date,
+    productId: 3,
+    quantity: 15,
   },
 ];
 
 const salesFromDB = [
   {
-    id: 1,
+    saleId: 1,
     date,
+    productId: 1,
+    quantity: 5,
   },
   {
-    id: 2,
+    saleId: 1,
     date,
+    productId: 2,
+    quantity: 10,
+  },
+  {
+    saleId: 2,
+    date: '2023-08-14T21:28:34.000Z',
+    productId: 3,
+    quantity: 15,
   },
 ];
 
 const salesByIdFromModel = {
-  id: 1,
-  date: '2023-08-14T23:14:54.000Z',
+  date: '2023-08-15T03:24:49.000Z',
+  productId: 1,
+  quantity: 5,
 };
 
 const salesByIdFromDB = {
-  id: 1,
-  date: '2023-08-14T23:14:54.000Z',
+  date: '2023-08-15T03:24:49.000Z',
+  productId: 1,
+  quantity: 5,
 };
 
 module.exports = {

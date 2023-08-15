@@ -2,23 +2,27 @@ const camelize = require('camelize');
 const connection = require('./connection');
 
 async function getAll() {
-  const [rows] = await connection.execute(
-    'SELECT * FROM sales ORDER BY id ASC',
-  );
+  const [rows] = await connection.execute(`SELECT sp.sale_id, s.date, sp.product_id, sp.quantity 
+  FROM sales s 
+  INNER JOIN sales_products sp 
+  ON s.id = sp.sale_id
+  ORDER BY sale_id, product_id;`);
   
   const rowsCamelize = camelize(rows);
   return rowsCamelize;
 }
 
 async function getById(id) {
-  const [rows] = await connection.execute(
-    'SELECT * FROM sales WHERE id = ?',
-    [id],
-  );
+  const [rows] = await connection.execute(`SELECT s.date, sl.product_id, sl.quantity
+  FROM sales s
+  INNER JOIN sales_products sl ON sl.sale_id = s.id
+  INNER JOIN products p ON sl.product_id = p.id
+  WHERE sl.sale_id = ?
+  `, [id]);
 
   const rowsCamelize = camelize(rows);
 
-  return rowsCamelize[0];
+  return rowsCamelize;
 }
 
   // async create(name, quantity) {

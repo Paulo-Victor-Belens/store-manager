@@ -1,11 +1,19 @@
 const SalesModel = require('../models/sales.model');
 
-    function findAll() {
-        return SalesModel.getAll();
+    async function findAll() {
+        const sales = await SalesModel.getAll();
+
+        if (!sales) return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+
+        return { status: 'SUCCESSFUL', data: sales };
     }
 
-    function findById(id) {
-        return SalesModel.getById(id);
+    async function findById(id) {
+      const sales = await SalesModel.getById(id);
+
+      if (sales.length === 0) return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+
+      return { status: 'SUCCESSFUL', data: sales };
     }
 
 module.exports = {
