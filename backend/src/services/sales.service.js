@@ -19,14 +19,15 @@ const SalesModel = require('../models/sales.model');
     async function create(sales) {
         const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
         const newSale = await SalesModel.createSales(currentDate);
+
         sales.forEach(async (item) => {
             const { productId, quantity } = item;
         
             await SalesModel.createSalesProducts(newSale, productId, quantity);
         });
-        // console.log(await salesOK);
+
         return { status: 'CREATED', data: newSale };
-    }
+        }
 
 module.exports = {
     findAll,

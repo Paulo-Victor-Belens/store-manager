@@ -27,6 +27,24 @@ const connection = require('./connection');
     return insertId;
   }
 
+  async function updateInDB(id, name) {
+    const rows = await connection.execute(
+      'UPDATE products SET name = ? WHERE id = ?',
+      [name, id],
+    );
+
+    return rows;
+  }
+
+  async function deleteInDB(id) {
+    const [result] = await connection.execute(
+      'DELETE FROM products WHERE id = ?',
+      [id],
+    );
+
+    return result;
+  }
+
   // async update(id, name, quantity) {
   //   const [result] = await this.connection.execute(
   //     'UPDATE products SET name = ?, quantity = ? WHERE id = ?',
@@ -47,4 +65,6 @@ module.exports = {
   getAll,
   getById,
   createInDB,
+  updateInDB,
+  deleteInDB,
 };

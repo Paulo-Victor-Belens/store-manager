@@ -38,9 +38,37 @@ const productByIdFromDB = {
   name: 'Martelo de Thor',
 };
 
+const productUpdate = [
+  {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  info: 'Rows matched: 1  Changed: 1  Warnings: 0',
+  serverStatus: 2,
+  warningStatus: 0,
+  changedRows: 1,
+},
+undefined,
+];
+
+const updateProductInDB = [
+  {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    info: 'Rows matched: 1  Changed: 1  Warnings: 0',
+    serverStatus: 2,
+    warningStatus: 0,
+    changedRows: 1,
+  },
+  null,
+];
+
 module.exports = {
   productsFromModel,
   productsFromDB,
   productByIdFromModel,
   productByIdFromDB,
+  productUpdate,
+  updateProductInDB,
 };

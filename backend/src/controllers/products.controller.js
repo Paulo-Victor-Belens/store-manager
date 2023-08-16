@@ -18,6 +18,19 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP');
         return res.status(mapStatusHTTP(status)).json({ id: data, name });
     }
 
+    async function updateProduct(req, res) {
+      const { id } = req.params;
+      const { name } = req.body;
+      const { status, data } = await ProductService.update(id, name);
+      return res.status(mapStatusHTTP(status)).json(data);
+    }
+
+    async function deleteProduct(req, res) {
+      const { id } = req.params;
+      const { status } = await ProductService.deleteProduct(id);
+      return res.status(mapStatusHTTP(status)).end();
+    }
+
     // update(req, res) {
     //     res.send('Update Product ' + req.params.id);
     // }
@@ -30,4 +43,6 @@ module.exports = {
     show,
     showById,
     createProduct,
+    updateProduct,
+    deleteProduct,
 };

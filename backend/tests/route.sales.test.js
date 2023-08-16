@@ -107,6 +107,7 @@ const app = require('../src/app');
 const connection = require('../src/models/connection');
 // const salesController = require('../src/controllers/sales.controller');
 
+const { expect } = chai;
 chai.use(chaiHttp);
 chai.use(sinonChai);
 
@@ -132,8 +133,8 @@ describe('Fazendo testes da rota SALES', function () {
 
     const response = await chai.request(app).get('/sales');
 
-    chai.expect(response.status).to.be.equal(200);
-    chai.expect(response.body).to.be.deep.equal(salesFromModel);
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.deep.equal(salesFromModel);
   });
 
   it('Recuperando uma venda pelo id', async function () {
@@ -141,9 +142,9 @@ describe('Fazendo testes da rota SALES', function () {
 
     const response = await chai.request(app).get('/sales/1');
 
-    chai.expect(response.status).to.be.equal(200);
-    chai.expect(response.body).to.be.deep.equal(salesByIdFromModel);
-    chai.expect(response).to.be.an('object');
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.deep.equal(salesByIdFromModel);
+    expect(response).to.be.an('object');
   });
 
   it('Testando rota sales por id, com id inválido', async function () {
@@ -151,10 +152,10 @@ describe('Fazendo testes da rota SALES', function () {
   
     const response = await chai.request(app).get('/sales/289');
   
-    chai.expect(response.status).to.be.equal(404);
-    chai.expect(response.body).to.be.an('object');
-    chai.expect(response.body).to.have.property('message');
-    chai.expect(response.body.message).to.be.equal('Sale not found');
+    expect(response.status).to.be.equal(404);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+    expect(response.body.message).to.be.equal('Sale not found');
   });
 
   it('Testando se quando for criada uma venda, o status é 201', async function () {
@@ -168,38 +169,38 @@ describe('Fazendo testes da rota SALES', function () {
 
     const response = await chai.request(app).post('/sales').send(salesCreatedValid);
 
-    chai.expect(response.status).to.be.equal(201);
-    chai.expect(response.body).to.be.an('object');
-    chai.expect(response.body).to.have.property('id');
-    chai.expect(response.body).to.have.property('itemsSold');
-    chai.expect(response.body.itemsSold).to.have.length(2);
+    expect(response.status).to.be.equal(201);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('id');
+    expect(response.body).to.have.property('itemsSold');
+    expect(response.body.itemsSold).to.have.length(2);
   });
 
   it('Testando se quando for criada uma venda sem a chave productId, o status é 400', async function () {
     const response = await chai.request(app).post('/sales').send(salesCreatedwithoutKeyProductId);
 
-    chai.expect(response.status).to.be.equal(400);
-    chai.expect(response.body).to.be.an('object');
-    chai.expect(response.body).to.have.property('message');
-    chai.expect(response.body.message).to.be.equal('"productId" is required');
+    expect(response.status).to.be.equal(400);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+    expect(response.body.message).to.be.equal('"productId" is required');
   });
 
   it('Testando se quando for criada uma venda sem a chave quantity, o status é 400', async function () {
     const response = await chai.request(app).post('/sales').send(salesCreatedwithoutKeyQuantity);
 
-    chai.expect(response.status).to.be.equal(400);
-    chai.expect(response.body).to.be.an('object');
-    chai.expect(response.body).to.have.property('message');
-    chai.expect(response.body.message).to.be.equal('"quantity" is required');
+    expect(response.status).to.be.equal(400);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+    expect(response.body.message).to.be.equal('"quantity" is required');
   });
 
   it('Testando se quando for criada uma venda com a chave quantity igual a zero, o status é 422', async function () {
     const response = await chai.request(app).post('/sales').send(salesCreatedwithtKeyQuantityEqualZero);
 
-    chai.expect(response.status).to.be.equal(422);
-    chai.expect(response.body).to.be.an('object');
-    chai.expect(response.body).to.have.property('message');
-    chai.expect(response.body.message).to.be.equal('"quantity" must be greater than or equal to 1');
+    expect(response.status).to.be.equal(422);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+    expect(response.body.message).to.be.equal('"quantity" must be greater than or equal to 1');
   });
 
   it('Testando se quando for criada uma venda sem o produto no banco de dados, o status é 404', async function () {
@@ -213,27 +214,27 @@ describe('Fazendo testes da rota SALES', function () {
 
     const response = await chai.request(app).post('/sales').send(salesCreatedwithoutProductInDB);
 
-    chai.expect(response.status).to.be.equal(404);
-    chai.expect(response.body).to.be.an('object');
-    chai.expect(response.body).to.have.property('message');
-    chai.expect(response.body.message).to.be.equal('Product not found');
+    expect(response.status).to.be.equal(404);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+    expect(response.body.message).to.be.equal('Product not found');
   });
 
   it('Testando se quando for criada uma venda sem nenhum produto, o status é 400', async function () {
     const response = await chai.request(app).post('/sales').send([]);
 
-    chai.expect(response.status).to.be.equal(400);
-    chai.expect(response.body).to.be.an('object');
-    chai.expect(response.body).to.have.property('message');
-    chai.expect(response.body.message).to.be.equal('Empty request body');
+    expect(response.status).to.be.equal(400);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+    expect(response.body.message).to.be.equal('Empty request body');
   });
 
   it('Testando se quando for criada uma venda com algo que não seja um array, o status é 400', async function () {
     const response = await chai.request(app).post('/sales').send({});
 
-    chai.expect(response.status).to.be.equal(400);
-    chai.expect(response.body).to.be.an('object');
-    chai.expect(response.body).to.have.property('message');
-    chai.expect(response.body.message).to.be.equal('Request body must be an array');
+    expect(response.status).to.be.equal(400);
+    expect(response.body).to.be.an('object');
+    expect(response.body).to.have.property('message');
+    expect(response.body.message).to.be.equal('Request body must be an array');
   });
 });
