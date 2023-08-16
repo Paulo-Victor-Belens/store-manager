@@ -7,12 +7,14 @@ const SalesModel = require('../models/sales.model');
     }
 
     async function findById(id) {
-      const sales = await SalesModel.getById(id);
+        const sales = await SalesModel.getById(id);
 
-      if (sales.length === 0) return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+        if (sales.length === 0) {
+            return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+        }
 
-      return { status: 'SUCCESSFUL', data: sales };
-    }
+        return { status: 'SUCCESSFUL', data: sales };
+        }
 
     async function create(sales) {
         const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -21,8 +23,6 @@ const SalesModel = require('../models/sales.model');
             const { productId, quantity } = item;
         
             await SalesModel.createSalesProducts(newSale, productId, quantity);
-            
-            return { status: 'CREATED', data: newSale };
         });
         // console.log(await salesOK);
         return { status: 'CREATED', data: newSale };
