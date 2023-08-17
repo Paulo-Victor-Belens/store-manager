@@ -1,4 +1,4 @@
-const mockDate = '2023-09-14T18:24:45.000Z';
+const mockDate = '2023-08-15T03:24:49.000Z';
 
 const getAllSalesFromDB = [
   [
@@ -100,47 +100,10 @@ const insertSaleInDB = [
   undefined,
 ];
 
-const createSaleFromDB = [
-  {
-    fieldCount: 0,
-    affectedRows: 2,
-    insertId: 0,
-    info: 'Records: 2  Duplicates: 0  Warnings: 0',
-    serverStatus: 2,
-    warningStatus: 0,
-  },
-  undefined,
-];
-
-const createSaleFromModel = {
-  fieldCount: 0,
-  affectedRows: 2,
-  insertId: 0,
-  info: 'Records: 2  Duplicates: 0  Warnings: 0',
-  serverStatus: 2,
-  warningStatus: 0,
-};
-
-const saleDataMock = [
-  {
-    saleId: 1,
-    productId: 1, 
-    quantity: 5,
-  },
-  {
-    saleId: 1, 
-    productId: 2, 
-    quantity: 10,
-  },
-];
-
 module.exports = {
   getAllSalesFromDB,
   getAllSalesFromModel,
   getSaleByIdFromDB,
   getSaleByIdFromModel,
   insertSaleInDB,
-  createSaleFromDB,
-  createSaleFromModel,
-  saleDataMock,
 };

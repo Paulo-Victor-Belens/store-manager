@@ -42,17 +42,31 @@ const salesFromDB = [
   },
 ];
 
-const salesByIdFromModel = {
-  date: '2023-08-15T03:24:49.000Z',
-  productId: 1,
-  quantity: 5,
-};
+const salesByIdFromModel = [
+  {
+    date,
+    productId: 1,
+    quantity: 5,
+  },
+  {
+    date,
+    productId: 2,
+    quantity: 10,
+  },
+];
 
-const salesByIdFromDB = {
-  date: '2023-08-15T03:24:49.000Z',
-  productId: 1,
-  quantity: 5,
-};
+const salesByIdFromDB = [
+  {
+    date,
+    productId: 1,
+    quantity: 5,
+  },
+  {
+    date,
+    productId: 2,
+    quantity: 10,
+  },
+];
 
 const salesCreatedValid = [
   {
@@ -107,6 +121,15 @@ const salesCreatedwithoutProductInDB = [
   },
 ];
 
+const createSaleFromModel = {
+  fieldCount: 0,
+  affectedRows: 2,
+  insertId: 0,
+  info: 'Records: 2  Duplicates: 0  Warnings: 0',
+  serverStatus: 2,
+  warningStatus: 0,
+};
+
 module.exports = {
   salesFromModel,
   salesFromDB,
@@ -117,4 +140,5 @@ module.exports = {
   salesCreatedwithoutKeyQuantity,
   salesCreatedwithtKeyQuantityEqualZero,
   salesCreatedwithoutProductInDB,
+  createSaleFromModel,
 };

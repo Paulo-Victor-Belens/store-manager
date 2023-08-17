@@ -23,11 +23,13 @@ const ProductsModel = require('../models/products.model');
     }
 
     async function update(id, product) {
-        const products = await ProductsModel.updateInDB(id, product);
-
-        if (!products) {
+        const productExist = await ProductsModel.getById(id);
+        
+        if (!productExist) {
             return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
         }
+        
+        await ProductsModel.updateInDB(id, product);
 
         const productsUpdate = await ProductsModel.getById(id);
 
@@ -35,12 +37,13 @@ const ProductsModel = require('../models/products.model');
     }
 
     async function deleteProduct(id) {
-        const products = await ProductsModel.deleteInDB(id);
-
-        if (!products) {
+        const productExist = await ProductsModel.getById(id);
+        
+        if (!productExist) {
             return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
         }
-
+        
+        await ProductsModel.deleteInDB(id);
         return { status: 'DELETED' };
     }
 

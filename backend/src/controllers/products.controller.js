@@ -27,8 +27,11 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
     async function deleteProduct(req, res) {
       const { id } = req.params;
-      const { status } = await ProductService.deleteProduct(id);
-      return res.status(mapStatusHTTP(status)).end();
+      const { status, data } = await ProductService.deleteProduct(id);
+      if (data === null) {
+        return res.status(mapStatusHTTP(status)).end();
+      }
+      return res.status(mapStatusHTTP(status)).json(data);
     }
 
     // update(req, res) {

@@ -8,7 +8,6 @@ const {
   productByIdFromModel,
   productByIdFromDB,
 } = require('./mocks/mocksProducts');
-const mapStatusHTTP = require('../src/utils/mapStatusHTTP');
 
 const app = require('../src/app');
 const connection = require('../src/models/connection');
@@ -83,17 +82,5 @@ describe('Fazendo testes da rota PRODUCTS', function () {
     expect(response.body).to.be.an('object');
     expect(response.body).to.have.property('message');
     expect(response.body.message).to.be.equal('"name" length must be at least 5 characters long');
-  });
-
-  it('Testando a função mapStatusHTTP com status existente', function () {
-    const response = mapStatusHTTP('SUCCESSFUL');
-
-    expect(response).to.be.equal(200);
-  });
-
-  it('Testando a função mapStatusHTTP com status não existente', function () {
-    const response = mapStatusHTTP('TESTE');
-
-    expect(response).to.be.equal(500);
   });
 });

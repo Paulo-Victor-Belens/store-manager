@@ -1,63 +1,48 @@
-// const chai = require('chai');
-// const sinon = require('sinon');
-// const ProductModel = require('../../../src/models/products.model');
-// const connection = require('../../../src/models/connection');
-// const {
-//   getAllInDB,
-//   getByIdInDB,
-//   createProductInDB,
-//   updateProductInDB,
-//   deleteProductInDB,
-//   getAllInDBModel,
-//   getByIdInDBModel,
-//   updateProductInDBModel,
-//   deleteProductInDBModel,
-// } = require('../../mocks/mocksProductModel');
+const chai = require('chai');
+const sinon = require('sinon');
+const SalesModel = require('../../../src/models/sales.model');
+const connection = require('../../../src/models/connection');
+const {
+  getAllSalesFromDB,
+  getAllSalesFromModel,
+  getSaleByIdFromDB,
+  getSaleByIdFromModel,
+  insertSaleInDB,
+} = require('../../mocks/mocksSalesModel');
 
-// const { expect } = chai;
+const { expect } = chai;
 
-// describe('Products Models unit tests', function () {
-//   afterEach(function () {
-//     sinon.restore();
-//   });
+describe('Products Models unit tests', function () {
+  afterEach(function () {
+    sinon.restore();
+  });
 
-//   it('getAllProducts should return an array of all products', async function () {
-//     sinon.stub(connection, 'execute').resolves(getAllInDB);
-//     const products = await ProductModel.getAll();
-//     expect(products).to.be.an('array');
-//     expect(products).to.have.lengthOf(3);
-//     expect(products).to.deep.equal(getAllInDBModel);
-//   });
+  it('get All sales should return an array of all products', async function () {
+    sinon.stub(connection, 'execute').resolves(getAllSalesFromDB);
+    const sales = await SalesModel.getAll();
+    expect(sales).to.be.an('array');
+    expect(sales).to.have.lengthOf(3);
+    expect(sales).to.deep.equal(getAllSalesFromModel);
+  });
 
-//   it('get Product By Id should return an object with the product', async function () {
-//     sinon.stub(connection, 'execute').resolves(getByIdInDB);
-//     const product = await ProductModel.getById(1);
-//     expect(product).to.be.an('object');
-//     expect(product).to.deep.equal(getByIdInDBModel);
-//   });
+  it('get sales By Id should return an object with the product', async function () {
+    sinon.stub(connection, 'execute').resolves(getSaleByIdFromDB);
+    const sales = await SalesModel.getById(1);
+    expect(sales).to.be.an('array');
+    expect(sales).to.deep.equal(getSaleByIdFromModel);
+  });
 
-//   it('create Product should create a new product and return it', async function () {
-//     sinon.stub(connection, 'execute').resolves(createProductInDB);
-//     const name = 'Test Product';
-//     const productCreated = await ProductModel.createInDB(name);
-//     expect(productCreated).to.be.an('number');
-//     expect(productCreated).to.deep.equal(4);
-//   });
+  it('insertSale should return the id of the inserted sale', async function () {
+    sinon.stub(connection, 'execute').resolves(insertSaleInDB);
+    const sale = await SalesModel.createSales('2023-08-14T20:24:15.000Z');
+    expect(sale).to.be.equal(insertSaleInDB[0].insertId);
+  });
 
-//   it('update Product should update a new product and return it', async function () {
-//     sinon.stub(connection, 'execute').resolves(updateProductInDB);
-//     const id = '1';
-//     const name = 'Test Product';
-//     const productCreated = await ProductModel.updateInDB(id, name);
-//     expect(productCreated).to.be.an('array');
-//     expect(productCreated).to.deep.equal(updateProductInDBModel);
-//   });
-
-//   it('delete Product should delete a new product and return it', async function () {
-//     sinon.stub(connection, 'execute').resolves(deleteProductInDB);
-//     const id = '1';
-//     const productCreated = await ProductModel.deleteInDB(id);
-//     expect(productCreated).to.be.an('object');
-//     expect(productCreated).to.deep.equal(deleteProductInDBModel);
-//   });
-// });
+  it('create Sale should create a new product and return it', async function () {
+    sinon.stub(connection, 'execute').resolves(insertSaleInDB);
+    const name = 'Test Product';
+    const salesCreated = await SalesModel.createSalesProducts(name);
+    expect(salesCreated).to.be.an('number');
+    expect(salesCreated).to.deep.equal(3);
+  });
+});
