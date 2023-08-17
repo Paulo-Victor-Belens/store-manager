@@ -1,4 +1,5 @@
 const SalesModel = require('../models/sales.model');
+const ProductModel = require('../models/products.model');
 
     async function findAll() {
         const sales = await SalesModel.getAll();
@@ -41,9 +42,33 @@ const SalesModel = require('../models/sales.model');
         return { status: 'DELETED' };
     }
 
+    async function updateSales(saleId, productId, quantity) {
+        const salesExsists = await SalesModel.getById(saleId);
+        const productExsists = await ProductModel.getById(productId);
+        
+        if (!productExsists) {
+            return { status: 'NOT_FOUND', data: { message: 'Product not found in sale' } };
+        }
+
+        if (salesExsists.length === 0) {
+            return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+        }
+
+        await SalesModel.updateSales(saleId, productId, quantity);
+
+        return { status: 'SUCCESSFUL',
+        data: { 
+            date: salesExsists[0].date, 
+            productId: Number(productId), 
+            quantity,
+            saleId: Number(saleId), 
+            },
+        };
+    }
 module.exports = {
     findAll,
     findById,
     create,
     deleteSales,
+    updateSales,
 };

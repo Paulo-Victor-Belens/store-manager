@@ -8,6 +8,9 @@ const [
   validateSalesKeys3,
   validateProductExists,
 ] = require('../../../src/middlewares/validationSales');
+
+const [validateQuantity, validateQuantity2] = require('../../../src/middlewares/validationUpdateSales');
+
 const {
   createSuccessfulSaleBodyMock,
   missingProductIdBodyMock,
@@ -131,5 +134,59 @@ describe('Sales Middlewares unit tests', function () {
     await validateProductExists(req, res, next);
 
     expect(next).to.have.been.calledWith();
+  });
+
+  it('Testing if not key quantity', async function () {
+    const req = {
+      body: {
+        quanti: 1,
+      },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    const next = sinon.stub().returns();
+
+    await validateQuantity2(req, res, next);
+
+    expect(res.status).to.have.been.calledWith(400);
+    expect(res.json).to.have.been.calledWith({ message: '"quantity" is required' });
+  });
+
+  it('Testing if key quantity equal 0', async function () {
+    const req = {
+      body: {
+        quantity: 0,
+      },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    const next = sinon.stub().returns();
+
+    await validateQuantity(req, res, next);
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith({ message: '"quantity" must be greater than or equal to 1' });
+  });
+
+  it('Testing if key quantity with negative quantitys', async function () {
+    const req = {
+      body: {
+        quantity: -12,
+      },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    const next = sinon.stub().returns();
+
+    await validateQuantity(req, res, next);
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith({ message: '"quantity" must be greater than or equal to 1' });
   });
 });

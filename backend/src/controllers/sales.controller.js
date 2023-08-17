@@ -30,9 +30,21 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP');
       return res.status(mapStatusHTTP(status)).end();
     }
 
+    async function updateSales(req, res) {
+      const { saleId, productId } = req.params;
+      const { quantity } = req.body;
+      const { status, data } = await SalesService.updateSales(
+        saleId, 
+        productId,
+        quantity,
+);
+      return res.status(mapStatusHTTP(status)).json(data);
+    }
+
 module.exports = {
     show,
     showById,
     createSales,
     deleteSales,
+    updateSales,
 };
