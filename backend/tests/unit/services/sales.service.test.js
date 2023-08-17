@@ -8,6 +8,7 @@ const {
   salesFromModel,
   salesByIdFromModel,
   createSaleFromModel,
+  updateSaleFromModel,
 } = require('../../mocks/mocksSales');
 
 const {
@@ -76,19 +77,33 @@ describe('Products Services unit tests', function () {
     expect(sales).to.deep.equal({ status: 'NOT_FOUND', data: { message: 'Sale not found' } });
   });
 
-  // it('Update Product should return an object with the product', async function () {
-  //   sinon.stub(connection, 'execute').resolves(updateProductInDB);
-  //   sinon.stub(SalesModels, 'updateInDB').resolves(productUpdate);
-  //   const id = '1';
-  //   const name = 'Martelo de Thor';
-  //   const product = await SalesServices.update(id, name);
-  //   expect(product).to.be.an('object');
-  //   // expect(product).to.deep.equal(updateService);
-  // });
+  it('Update sales should return an object with the update', async function () {
+    sinon.stub(SalesModels, 'updateSales').resolves('2023-08-17T20:49:27.000Z');
+    const productId = 2;
+    const saleId = 1;
+    const quantity = 20;
+    const sales = await SalesServices.updateSales(saleId, productId, quantity);
+    expect(sales).to.be.an('object');
+    expect(sales).to.deep.equal({ status: 'SUCCESSFUL', data: updateSaleFromModel });
+  });
 
-  // it('delete Product should return an object with the product', async function () {
-  //   const deleted = sinon.stub(SalesModels, 'deleteInDB').resolves();
-  //   await SalesServices.deleteProduct(1);
-  //   expect(deleted.calledOnce).to.be.equal(true);
-  // });
+  it('Update sales should return erro if productId not exist', async function () {
+    sinon.stub(SalesModels, 'updateSales').resolves('2023-08-17T20:49:27.000Z');
+    const productId = 3434;
+    const saleId = 1;
+    const quantity = 20;
+    const sales = await SalesServices.updateSales(saleId, productId, quantity);
+    expect(sales).to.be.an('object');
+    expect(sales).to.deep.equal({ status: 'NOT_FOUND', data: { message: 'Product not found in sale' } });
+  });
+
+  it('Update sales should return erro if saleId not exist', async function () {
+    sinon.stub(SalesModels, 'updateSales').resolves('2023-08-17T20:49:27.000Z');
+    const productId = 2;
+    const saleId = 1212;
+    const quantity = 20;
+    const sales = await SalesServices.updateSales(saleId, productId, quantity);
+    expect(sales).to.be.an('object');
+    expect(sales).to.deep.equal({ status: 'NOT_FOUND', data: { message: 'Sale not found' } });
+  });
 });

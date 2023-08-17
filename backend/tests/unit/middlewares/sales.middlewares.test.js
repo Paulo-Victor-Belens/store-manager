@@ -189,4 +189,34 @@ describe('Sales Middlewares unit tests', function () {
     expect(res.status).to.have.been.calledWith(422);
     expect(res.json).to.have.been.calledWith({ message: '"quantity" must be greater than or equal to 1' });
   });
+
+  it('If Body.length equal a zero, return erro', async function () {
+    const req = {
+      body: [],
+      };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await validateBody(req, res);
+    expect(res.status).to.have.been.calledWith(400);
+    expect(res.json).to.have.been.calledWith({ message: 'Empty request body' });
+  });
+
+  it('If Body not equal array, return erro', async function () {
+    const req = {
+      body: {
+        name: 'Test Product',
+      },
+      };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await validateBody(req, res);
+    expect(res.status).to.have.been.calledWith(400);
+    expect(res.json).to.have.been.calledWith({ message: 'Request body must be an array' });
+  });
 });

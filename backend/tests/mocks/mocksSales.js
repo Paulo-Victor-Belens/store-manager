@@ -130,6 +130,13 @@ const createSaleFromModel = {
   warningStatus: 0,
 };
 
+const updateSaleFromModel = {
+  date: '2023-08-17T20:49:27.000Z',
+  productId: 2,
+  quantity: 20,
+  saleId: 1,
+};
+
 module.exports = {
   salesFromModel,
   salesFromDB,
@@ -141,4 +148,5 @@ module.exports = {
   salesCreatedwithtKeyQuantityEqualZero,
   salesCreatedwithoutProductInDB,
   createSaleFromModel,
+  updateSaleFromModel,
 };

@@ -53,4 +53,14 @@ describe('Products Models unit tests', function () {
     expect(salesCreated).to.be.an('number');
     expect(salesCreated).to.deep.equal(1);
   });
+
+  it('Update Sales should be successful', async function () {
+    sinon.stub(connection, 'execute').resolves(getSaleByIdFromDB);
+    const productId = '2';
+    const saleId = '1';
+    const quantity = '20';
+    const salesCreated = await SalesModel.updateSales(saleId, productId, quantity);
+    expect(salesCreated).to.be.an('string');
+    expect(salesCreated).to.deep.equal('20230815T03:24:49000Z');
+  });
 });

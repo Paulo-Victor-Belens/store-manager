@@ -43,11 +43,13 @@ async function deleteSales(id) {
   return camelize(rows.affectedRows);
 }
 
-async function updateSales(salesId, productId, quantity) {
-  const [rows] = await connection.execute(`UPDATE sales_products
+async function updateSales(saleId, productId, quantity) {
+  await connection.execute(`UPDATE sales_products
   SET quantity = ?
-  WHERE sale_id = ? AND product_id = ?`, [quantity, salesId, productId]);
-  return camelize(rows.affectedRows);
+  WHERE sale_id = ? AND product_id = ?`, [quantity, saleId, productId]);
+
+  const salesExsists = await getById(saleId);
+  return camelize(salesExsists[0].date);
 }
 
 module.exports = {

@@ -3,14 +3,14 @@ const ProductModel = require('../models/products.model');
 const validateBody = (req, res, next) => {
   const { body } = req;
 
-  if (body.length === 0) {
-    return res.status(400)
-      .json({ message: 'Empty request body' });
-  }
-
   if (!Array.isArray(body)) {
     return res.status(400)
       .json({ message: 'Request body must be an array' });
+  }
+  
+  if (body.length === 0) {
+    return res.status(400)
+      .json({ message: 'Empty request body' });
   }
 
   return next();
@@ -84,7 +84,8 @@ const validateProductExists = async (req, res, next) => {
   return next();
 };
 
-module.exports = [validateBody, 
+module.exports = [
+  validateBody, 
   validateSalesKeys,
   validateSalesKeys2,
   validateSalesKeys3,

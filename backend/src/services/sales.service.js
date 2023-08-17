@@ -54,11 +54,11 @@ const ProductModel = require('../models/products.model');
             return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
         }
 
-        await SalesModel.updateSales(saleId, productId, quantity);
+        const date = await SalesModel.updateSales(saleId, productId, quantity);
 
         return { status: 'SUCCESSFUL',
         data: { 
-            date: salesExsists[0].date, 
+            date, 
             productId: Number(productId), 
             quantity,
             saleId: Number(saleId), 

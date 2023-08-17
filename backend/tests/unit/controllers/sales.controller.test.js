@@ -6,10 +6,13 @@ const SalesController = require('../../../src/controllers/sales.controller');
 const {
   salesFromModel,
   salesByIdFromModel,
+  updateSaleFromModel,
 } = require('../../mocks/mocksSales');
 
 const { expect } = chai;
 chai.use(sinonChai);
+
+const message = 'Sale not found';
 
 describe('Products Controllers unit tests', function () {
   afterEach(function () {
@@ -40,7 +43,7 @@ describe('Products Controllers unit tests', function () {
   });
 
   it('showById should NOT be successful', async function () {
-    sinon.stub(SalesService, 'findById').resolves({ status: 'NOT_FOUND', data: { message: 'Sale not found' } });
+    sinon.stub(SalesService, 'findById').resolves({ status: 'NOT_FOUND', data: { message } });
     const req = {
       params: { id: '190' },
     };
@@ -87,7 +90,7 @@ describe('Products Controllers unit tests', function () {
   });
 
   it('Delete Sales should be NOT successful', async function () {
-    sinon.stub(SalesService, 'deleteSales').resolves({ status: 'NOT_FOUND', data: { message: 'Sale not found' } });
+    sinon.stub(SalesService, 'deleteSales').resolves({ status: 'NOT_FOUND', data: { message } });
     const req = {
       params: { id: '6565' },
     };
@@ -97,7 +100,25 @@ describe('Products Controllers unit tests', function () {
     };
     await SalesController.deleteSales(req, res);
     expect(res.status).to.have.been.calledWith(404);
-    expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
+    expect(res.json).to.have.been.calledWith({ message });
+  });
+
+  it('Update Sales should be successful', async function () {
+    sinon.stub(SalesService, 'updateSales').resolves({ status: 'SUCCESSFUL', data: updateSaleFromModel });
+    const req = {
+      params: { 
+        saleId: '1',
+        productId: '1',
+      },
+      body: { quantity: 20 },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await SalesController.updateSales(req, res);
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(updateSaleFromModel);
   });
 
   // it('Update sales should be successful', async function () {
