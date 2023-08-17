@@ -36,31 +36,17 @@ async function createSalesProducts(saleId, productId, quantity) {
   return camelize(insertId);
 }
 
-// async function updateQuantity(sale) {
-//   const [rows] = await connection.execute(`UPDATE products 
-//   SET quantity = quantity - ? WHERE id = ?`, [sale.quantity, sale.product_id]);
-//   return camelize(rows);
-// }
-
-   // async update(id, name, quantity) {
-  //   const [result] = await this.connection.execute(
-  //     'UPDATE sales SET name = ?, quantity = ? WHERE id = ?',
-  //     [name, quantity, id]
-  //   );
-  //   return result;
-  // }
-
-  // async delete(id) {
-  //   const [result] = await this.connection.execute(
-  //     'DELETE FROM sales WHERE id = ?',
-  //     [id]
-  //   );
-  //   return result;
-  // }
+async function deleteSales(id) {
+  const [rows] = await connection.execute(`DELETE FROM
+  sales WHERE id = ?`, [id]);
+  console.log(rows);
+  return camelize(rows.affectedRows);
+}
 
 module.exports = {
   getAll,
   getById,
   createSales,
   createSalesProducts,
+  deleteSales,
 };

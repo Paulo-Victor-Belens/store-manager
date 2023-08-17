@@ -17,7 +17,7 @@ describe('Products Controllers unit tests', function () {
   afterEach(function () {
     sinon.restore();
   });
-  it('findAll should be successful', async function () {
+  it('show should be successful', async function () {
     sinon.stub(ProductsServices, 'findAll').resolves({ status: 'SUCCESSFUL', data: productsFromModel });
     const req = {};
     const res = {

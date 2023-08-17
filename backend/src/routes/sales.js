@@ -6,9 +6,11 @@ const router = express.Router();
 
 // Aqui vão os validadores, middlewares, etc...
 
-router.get('/', SalesController.show);
-
 router.get('/:id', SalesController.showById);
+
+router.delete('/:id', SalesController.deleteSales);
+
+router.get('/', SalesController.show);
 
 router.post('/', validationSales, SalesController.createSales);
 

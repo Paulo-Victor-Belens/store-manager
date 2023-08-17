@@ -45,4 +45,12 @@ describe('Products Models unit tests', function () {
     expect(salesCreated).to.be.an('number');
     expect(salesCreated).to.deep.equal(3);
   });
+
+  it('Delete Sales should be successful', async function () {
+    sinon.stub(connection, 'execute').resolves(insertSaleInDB);
+    const id = '1';
+    const salesCreated = await SalesModel.deleteSales(id);
+    expect(salesCreated).to.be.an('number');
+    expect(salesCreated).to.deep.equal(1);
+  });
 });

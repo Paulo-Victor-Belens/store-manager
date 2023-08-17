@@ -73,6 +73,33 @@ describe('Products Controllers unit tests', function () {
     expect(res.status).to.have.been.calledWith(201);
   });
 
+  it('Delete Sales should be successful', async function () {
+    sinon.stub(SalesService, 'deleteSales').resolves({ status: 'DELETED' });
+    const req = {
+      params: { id: '1' },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      end: sinon.stub(),
+    };
+    await SalesController.deleteSales(req, res);
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+  it('Delete Sales should be NOT successful', async function () {
+    sinon.stub(SalesService, 'deleteSales').resolves({ status: 'NOT_FOUND', data: { message: 'Sale not found' } });
+    const req = {
+      params: { id: '6565' },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    await SalesController.deleteSales(req, res);
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
+  });
+
   // it('Update sales should be successful', async function () {
   //   sinon.stub(SalesService, 'update').resolves({ status: 'SUCCESSFUL', data: { id: 1, name: 'Test Product' } });
   //   const req = {

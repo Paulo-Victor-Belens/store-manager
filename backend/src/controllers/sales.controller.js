@@ -21,16 +21,18 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP');
       });
     }
 
-    // update(req, res) {
-    //     res.send('Update Product ' + req.params.id);
-    // }
-
-    // delete(req, res) {
-    //     res.send('Delete Product ' + req.params.id);
-    // }
+    async function deleteSales(req, res) {
+      const { id } = req.params;
+      const { status, data } = await SalesService.deleteSales(id);
+      if (data) {
+        return res.status(mapStatusHTTP(status)).json(data);
+      }
+      return res.status(mapStatusHTTP(status)).end();
+    }
 
 module.exports = {
     show,
     showById,
     createSales,
+    deleteSales,
 };

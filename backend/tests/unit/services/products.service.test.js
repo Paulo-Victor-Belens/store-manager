@@ -27,7 +27,7 @@ describe('Products Services unit tests', function () {
     sinon.restore();
   });
 
-  it('getAll should return an array of all products', async function () {
+  it('findAll should return an array of all products', async function () {
     sinon.stub(ProductsModels, 'getAll').resolves(productsFromModel);
     const products = await ProductsServices.findAll();
     expect(products).to.be.an('object');

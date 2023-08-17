@@ -29,8 +29,21 @@ const SalesModel = require('../models/sales.model');
         return { status: 'CREATED', data: newSale };
         }
 
+    async function deleteSales(id) {
+        const salesExsists = await SalesModel.getById(id);
+
+        if (salesExsists.length === 0) {
+            return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+        }
+
+        await SalesModel.deleteSales(id);
+
+        return { status: 'DELETED' };
+    }
+
 module.exports = {
     findAll,
     findById,
     create,
+    deleteSales,
 };

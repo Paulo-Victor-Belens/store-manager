@@ -61,7 +61,21 @@ describe('Products Services unit tests', function () {
     expect(sales).to.be.an('object');
     expect(sales).to.deep.equal({ status: 'CREATED', data: 1 });
   });
+
+  it('Delete Sales should be successful', async function () {
+    sinon.stub(SalesModels, 'deleteSales').resolves(1);
+    const sales = await SalesServices.deleteSales(1);
+    expect(sales).to.be.an('object');
+    expect(sales).to.deep.equal({ status: 'DELETED' });
+  });
   
+  it('Delete Sales should be NOT successful', async function () {
+    sinon.stub(SalesModels, 'deleteSales').resolves([]);
+    const sales = await SalesServices.deleteSales(2125);
+    expect(sales).to.be.an('object');
+    expect(sales).to.deep.equal({ status: 'NOT_FOUND', data: { message: 'Sale not found' } });
+  });
+
   // it('Update Product should return an object with the product', async function () {
   //   sinon.stub(connection, 'execute').resolves(updateProductInDB);
   //   sinon.stub(SalesModels, 'updateInDB').resolves(productUpdate);
