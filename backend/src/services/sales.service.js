@@ -21,10 +21,10 @@ const ProductModel = require('../models/products.model');
         const currentDate = new Date();
         const newSale = await SalesModel.createSales(currentDate);
 
-        sales.forEach(async (item) => {
+        sales.forEach((item) => {
             const { productId, quantity } = item;
         
-            await SalesModel.createSalesProducts(newSale, productId, quantity);
+            SalesModel.createSalesProducts(newSale, productId, quantity);
         });
 
         return { status: 'CREATED', data: newSale };
