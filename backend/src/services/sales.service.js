@@ -18,7 +18,7 @@ const ProductModel = require('../models/products.model');
         }
 
     async function create(sales) {
-        const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+        const currentDate = new Date();
         const newSale = await SalesModel.createSales(currentDate);
 
         sales.forEach(async (item) => {

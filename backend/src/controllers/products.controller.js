@@ -34,6 +34,12 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP');
       return res.status(mapStatusHTTP(status)).json(data);
     }
 
+    async function showBySearch(req, res) {
+      const name = req.query.q;
+      const { status, data } = await ProductService.findBySearch(name);
+      return res.status(mapStatusHTTP(status)).json(data);
+    }
+
     // update(req, res) {
     //     res.send('Update Product ' + req.params.id);
     // }
@@ -48,4 +54,5 @@ module.exports = {
     createProduct,
     updateProduct,
     deleteProduct,
+    showBySearch,
 };

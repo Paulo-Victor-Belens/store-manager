@@ -60,4 +60,12 @@ describe('Products Models unit tests', function () {
     expect(productCreated).to.be.an('object');
     expect(productCreated).to.deep.equal(deleteProductInDBModel);
   });
+
+  it('Searh Product by name should return an object', async function () {
+    sinon.stub(connection, 'execute').resolves([{ id: 1, name: 'Martelo de Thor' }]);
+    const name = 'Martelo';
+    const productCreated = await ProductModel.getBySearch(name);
+    expect(productCreated).to.be.an('object');
+    expect(productCreated).to.deep.equal({ id: 1, name: 'Martelo de Thor' });
+  });
 });

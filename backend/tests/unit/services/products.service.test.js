@@ -56,7 +56,6 @@ describe('Products Services unit tests', function () {
     const name = 'Martelo de Thor';
     const product = await ProductsServices.update(id, name);
     expect(product).to.be.an('object');
-    // expect(product).to.deep.equal(updateService);
   });
 
   it('Update Product if id not extist should return an object with the product', async function () {
@@ -79,6 +78,30 @@ describe('Products Services unit tests', function () {
     const isDelet = await ProductsServices.deleteProduct(545);
     expect(isDelet).to.be.an('object');
     expect(isDelet).to.deep.equal({ status: 'NOT_FOUND', data: { message: 'Product not found' } });
+  });
+
+  it('Search Product by name should return an object with the product', async function () {
+    sinon.stub(ProductsModels, 'getBySearch').resolves(productByIdFromModel);
+    const name = 'Martelo';
+    const product = await ProductsServices.findBySearch(name);
+    expect(product).to.be.an('object');
+    expect(product).to.deep.equal({ status: 'SUCCESSFUL', data: productByIdFromModel });
+  });
+
+  it('Search Product by name NOT should return an object with the product', async function () {
+    sinon.stub(ProductsModels, 'getBySearch').resolves(productsFromModel);
+    const name = undefined;
+    const product = await ProductsServices.findBySearch(name);
+    expect(product).to.be.an('object');
+    expect(product).to.deep.equal({ status: 'SUCCESSFUL', data: productsFromModel });
+  });
+
+  it('Search Product by name should return an object with an empty array ', async function () {
+    sinon.stub(ProductsModels, 'getBySearch').resolves([]);
+    const name = 'ProductIfNotExist';
+    const product = await ProductsServices.findBySearch(name);
+    expect(product).to.be.an('object');
+    expect(product).to.deep.equal({ status: 'SUCCESSFUL', data: [] });
   });
 
   it('Testando a função mapStatusHTTP com status existente', function () {

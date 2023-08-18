@@ -6,6 +6,8 @@ const router = express.Router();
 
 // Aqui vão os validadores, middlewares, etc...
 
+router.get('/search', ProductsController.showBySearch);
+
 router.get('/:id', ProductsController.showById);
 
 router.put('/:id', validateProduct, ProductsController.updateProduct);

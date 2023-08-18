@@ -138,9 +138,7 @@ describe('Sales Middlewares unit tests', function () {
 
   it('Testing if not key quantity', async function () {
     const req = {
-      body: {
-        quanti: 1,
-      },
+      body: { quanti: 1 },
     };
     const res = {
       status: sinon.stub().returnsThis(),
@@ -156,9 +154,7 @@ describe('Sales Middlewares unit tests', function () {
 
   it('Testing if key quantity equal 0', async function () {
     const req = {
-      body: {
-        quantity: 0,
-      },
+      body: { quantity: 0 },
     };
     const res = {
       status: sinon.stub().returnsThis(),
@@ -174,9 +170,7 @@ describe('Sales Middlewares unit tests', function () {
 
   it('Testing if key quantity with negative quantitys', async function () {
     const req = {
-      body: {
-        quantity: -12,
-      },
+      body: { quantity: -12 },
     };
     const res = {
       status: sinon.stub().returnsThis(),
@@ -190,10 +184,38 @@ describe('Sales Middlewares unit tests', function () {
     expect(res.json).to.have.been.calledWith({ message: '"quantity" must be greater than or equal to 1' });
   });
 
-  it('If Body.length equal a zero, return erro', async function () {
+  it('Testing if key quantity OK', async function () {
     const req = {
-      body: [],
-      };
+      body: { quantity: 12 },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    const next = sinon.stub().returns();
+
+    await validateQuantity(req, res, next);
+
+    expect(next).to.have.been.calledWith();
+  });
+
+  it('Testing if key quantity OK in validate2', async function () {
+    const req = {
+      body: { quantity: 12 },
+    };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+    const next = sinon.stub().returns();
+
+    await validateQuantity2(req, res, next);
+
+    expect(next).to.have.been.calledWith();
+  });
+
+  it('If Body.length equal a zero, return erro', async function () {
+    const req = { body: [] };
     const res = {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
@@ -206,9 +228,7 @@ describe('Sales Middlewares unit tests', function () {
 
   it('If Body not equal array, return erro', async function () {
     const req = {
-      body: {
-        name: 'Test Product',
-      },
+      body: { name: 'Test Product' },
       };
     const res = {
       status: sinon.stub().returnsThis(),

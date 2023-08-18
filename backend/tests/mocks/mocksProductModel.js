@@ -1,8 +1,10 @@
+const nameThor = 'Martelo de Thor';
+
 const getAllInDB = [
   [
     {
       id: 1,
-      name: 'Martelo de Thor',
+      name: nameThor,
     },
     {
       id: 2,
@@ -19,7 +21,7 @@ const getAllInDB = [
 const getAllInDBModel = [
   {
     id: 1,
-    name: 'Martelo de Thor',
+    name: nameThor,
   },
   {
     id: 2,
@@ -35,14 +37,23 @@ const getByIdInDB = [
   [
     {
       id: 1,
-      name: 'Martelo de Thor',
+      name: nameThor,
+    },
+  ],
+];
+
+const getByIdInModelSearch = [
+  [
+    {
+      id: 1,
+      name: nameThor,
     },
   ],
 ];
 
 const getByIdInDBModel = {
   id: 1,
-  name: 'Martelo de Thor',
+  name: nameThor,
 };
 
 const createProductInDB = [
@@ -114,4 +125,5 @@ module.exports = {
   getByIdInDBModel,
   updateProductInDBModel,
   deleteProductInDBModel,
+  getByIdInModelSearch,
 };

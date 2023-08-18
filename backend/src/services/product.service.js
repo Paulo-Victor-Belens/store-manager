@@ -47,10 +47,26 @@ const ProductsModel = require('../models/products.model');
         return { status: 'DELETED' };
     }
 
+    async function findBySearch(name) {
+        if (!name) { 
+            const products = await ProductsModel.getAll();
+            return { status: 'SUCCESSFUL', data: products };
+        }
+
+        const products = await ProductsModel.getBySearch(name);
+
+        if (!products) {
+            return { status: 'SUCCESSFUL', data: [] };
+        }
+
+        return { status: 'SUCCESSFUL', data: products };
+    }
+
 module.exports = {
     findAll,
     findById,
     create,
     update,
     deleteProduct,
+    findBySearch,
 };

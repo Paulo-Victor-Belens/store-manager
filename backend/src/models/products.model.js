@@ -18,6 +18,17 @@ const connection = require('./connection');
     return rowsCamelize[0];
   }
 
+  async function getBySearch(name) {
+    const [rows] = await connection.execute(
+      'SELECT * FROM products WHERE name LIKE ?',
+      [`%${name}%`],
+    );
+
+    const rowsCamelize = camelize(rows);
+
+    return rowsCamelize;
+  }
+
   async function createInDB(name) {
     const [{ insertId }] = await connection.execute(
       'INSERT INTO products (name) VALUES (?)',
@@ -67,4 +78,5 @@ module.exports = {
   createInDB,
   updateInDB,
   deleteInDB,
+  getBySearch,
 };
