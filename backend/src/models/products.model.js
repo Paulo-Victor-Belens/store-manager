@@ -56,22 +56,6 @@ const connection = require('./connection');
     return result;
   }
 
-  // async update(id, name, quantity) {
-  //   const [result] = await this.connection.execute(
-  //     'UPDATE products SET name = ?, quantity = ? WHERE id = ?',
-  //     [name, quantity, id]
-  //   );
-  //   return result;
-  // }
-
-  // async delete(id) {
-  //   const [result] = await this.connection.execute(
-  //     'DELETE FROM products WHERE id = ?',
-  //     [id]
-  //   );
-  //   return result;
-  // }
-
 module.exports = {
   getAll,
   getById,
