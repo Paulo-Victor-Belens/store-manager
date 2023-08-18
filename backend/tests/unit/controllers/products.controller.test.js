@@ -120,7 +120,7 @@ describe('Products Controllers unit tests', function () {
     await ProductsControllers.deleteProduct(req, res);
     expect(res.status).to.have.been.calledWith(404);
   });
-
+  
   it('Search Product by name should be successful with query params it correct name', async function () {
     sinon.stub(ProductsServices, 'findBySearch').resolves({ status: 'SUCCESSFUL', data: productByIdFromModel });
     const req = {
