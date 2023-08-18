@@ -11,7 +11,6 @@ const {
   getAllInDBModel,
   getByIdInDBModel,
   updateProductInDBModel,
-  deleteProductInDBModel,
 } = require('../../mocks/mocksProductModel');
 
 const { expect } = chai;
@@ -57,8 +56,8 @@ describe('Products Models unit tests', function () {
     sinon.stub(connection, 'execute').resolves(deleteProductInDB);
     const id = '1';
     const productCreated = await ProductModel.deleteInDB(id);
-    expect(productCreated).to.be.an('object');
-    expect(productCreated).to.deep.equal(deleteProductInDBModel);
+    expect(productCreated).to.be.an('number');
+    expect(productCreated).to.deep.equal(1);
   });
 
   it('Searh Product by name should return an object', async function () {

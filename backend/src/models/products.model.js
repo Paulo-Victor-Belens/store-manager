@@ -52,8 +52,8 @@ const connection = require('./connection');
       'DELETE FROM products WHERE id = ?',
       [id],
     );
-
-    return result;
+    
+    return result.affectedRows;
   }
 
 module.exports = {
