@@ -40,14 +40,6 @@ const mapStatusHTTP = require('../utils/mapStatusHTTP');
       return res.status(mapStatusHTTP(status)).json(data);
     }
 
-    // update(req, res) {
-    //     res.send('Update Product ' + req.params.id);
-    // }
-
-    // delete(req, res) {
-    //     res.send('Delete Product ' + req.params.id);
-    // }
-
 module.exports = {
     show,
     showById,

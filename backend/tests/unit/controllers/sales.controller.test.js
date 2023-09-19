@@ -25,6 +25,7 @@ describe('Products Controllers unit tests', function () {
       status: sinon.stub().returnsThis(),
       json: sinon.stub(),
     };
+    console.log('res', res.json);
     await SalesController.show(req, res);
     expect(res.status).to.have.been.calledWith(200);
   });

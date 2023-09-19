@@ -53,13 +53,13 @@ const ProductsModel = require('../models/products.model');
             return { status: 'SUCCESSFUL', data: products };
         }
 
-        const products = await ProductsModel.getBySearch(name);
+        // const products = await ProductsModel.getBySearch(name);
 
-        if (!products) {
-            return { status: 'SUCCESSFUL', data: [] };
-        }
+        // if (!products) {
+        //     return { status: 'SUCCESSFUL', data: [] };
+        // }
 
-        return { status: 'SUCCESSFUL', data: products };
+        // return { status: 'SUCCESSFUL', data: products };
     }
 
 module.exports = {
